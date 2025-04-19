@@ -14,16 +14,16 @@ const headlines = [
 ];
 
 export default function MedicalCarousel({ reverse = false }) {
-  const [active, setActive]       = useState(0);
-  const [hover, setHover]         = useState<number | null>(null);
-  const [rect, setRect]           = useState({ top: 0, height: 0 });
-  const [ready, setReady]         = useState(false);
-  const [isPaused, setIsPaused]   = useState(false);
+  const [active, setActive]     = useState(0);
+  const [hover, setHover]       = useState<number|null>(null);
+  const [rect, setRect]         = useState({ top: 0, height: 0 });
+  const [ready, setReady]       = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const timer   = useRef<NodeJS.Timeout>();
   const rowRefs = useRef<HTMLButtonElement[]>([]);
 
-  /* autoplay */
+  // — autoplay timer
   const clear = () => clearInterval(timer.current as NodeJS.Timeout);
   const start = () => {
     clear();
@@ -34,7 +34,7 @@ export default function MedicalCarousel({ reverse = false }) {
   };
   useEffect(() => { start(); return clear; }, []);
 
-  /* measure highlight */
+  // — measure highlighter
   const target = hover ?? active;
   const measure = () => {
     const node = rowRefs.current[target];
@@ -68,7 +68,7 @@ export default function MedicalCarousel({ reverse = false }) {
           \${reverse ? "landscape:flex-row-reverse" : ""}
         \`}
       >
-        {/* Slide area */}
+        {/* Slides */}
         <div className="relative flex-1 aspect-[16/9] landscape:max-h-[70vh] portrait:max-h-[45vh] overflow-hidden rounded-2xl bg-gray-300">
           {slides.map((s, i) => (
             <div
@@ -122,6 +122,7 @@ export default function MedicalCarousel({ reverse = false }) {
           ))}
         </div>
       </div>
+
       <style>{\`@keyframes grow{from{width:0}to{width:100%}}\`}</style>
     </div>
   );
