@@ -155,3 +155,20 @@
         }
     }
 }
+
+/* Prevent any horizontal overflow site‑wide */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Hide native scrollbars on all elements */
+body {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  /* Chrome, Safari, Opera */
+  display: none;
+}
