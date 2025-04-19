@@ -1,10 +1,10 @@
-import '../styles/globals.css'
-import Navbar from '../components/Navbar'
+import "../styles/globals.css";
+import Navbar from "../components/Navbar";
 
 export const metadata = {
-  title: 'My Scroll‑Snap Site',
-  description: 'Built with Next.js & Netlify',
-}
+  title: "Scroll‑Snap Site",
+  description: "Next.js + Netlify + Tailwind",
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -14,5 +14,5 @@ export default function RootLayout({ children }) {
         {children}
       </body>
     </html>
-  )
+  );
 }
