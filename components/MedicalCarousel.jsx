@@ -21,21 +21,18 @@ export default function MedicalCarousel({ reverse = false }) {
   const timer = useRef();
   const rowRefs = useRef([]);
 
-  /* autoplay */
   const clear = () => clearInterval(timer.current);
   const start = () => {
     clear();
-    timer.current = setInterval(
-      () => setActive((p) => (p + 1) % slides.length),
-      AUTOPLAY_MS
-    );
+    timer.current = setInterval(() => {
+      setActive((p) => (p + 1) % slides.length);
+    }, AUTOPLAY_MS);
   };
   useEffect(() => {
     start();
     return clear;
   }, []);
 
-  /* measure highlight */
   const target = hover ?? active;
   const measure = () => {
     const node = rowRefs.current[target];
@@ -54,14 +51,14 @@ export default function MedicalCarousel({ reverse = false }) {
   const barKey = hover === null ? active : -1;
 
   return (
-    <div className="flex flex-col max-w-[1200px] mx-auto p-10 font-sans bg-slate-50 h-full w-full">
-      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 leading-tight mb-10">
+    <div className="flex flex-col w-full max-w-[1600px] mx-auto px-10 py-16 font-sans bg-slate-50 h-full">
+      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 leading-tight mb-12 max-w-[700px]">
         In the moment, <span className="text-teal-600">only</span> the patient matters
       </h2>
 
-      <div className={`flex flex-col md:flex-row gap-8 grow ${reverse ? "md:flex-row-reverse" : ""}`}>
+      <div className={`flex flex-col md:flex-row gap-10 grow items-center ${reverse ? "md:flex-row-reverse" : ""}`}>
         {/* Slides */}
-        <div className="relative basis-1/2 overflow-hidden rounded-2xl bg-gray-300 min-h-[300px]">
+        <div className="relative w-full md:w-[70%] aspect-[4/3] overflow-hidden rounded-2xl bg-gray-300 min-h-[300px] max-w-[900px]">
           {slides.map((s, i) => (
             <div
               key={s.id}
@@ -80,7 +77,7 @@ export default function MedicalCarousel({ reverse = false }) {
             setHover(null);
             start();
           }}
-          className="basis-2/5 relative flex flex-col justify-center gap-2"
+          className="w-full md:w-[30%] relative flex flex-col justify-center gap-2"
         >
           {ready && (
             <div
@@ -108,10 +105,10 @@ export default function MedicalCarousel({ reverse = false }) {
                 setActive(i);
                 start();
               }}
-              className="relative z-10 text-left py-4 px-5 rounded-lg"
+              className="relative z-10 text-left py-3 px-4 rounded-lg"
             >
               <p
-                className={`text-lg font-semibold break-words transition-colors duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)] ${
+                className={`text-base md:text-lg font-medium break-words transition-colors duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)] ${
                   target === i ? "text-teal-600" : "text-slate-800"
                 }`}
               >
