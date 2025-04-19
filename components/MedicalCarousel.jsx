@@ -2,11 +2,13 @@
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 const AUTOPLAY_MS = 6000;
+
 const slides = [
   { id: "0", content: "1" },
   { id: "1", content: "2" },
   { id: "2", content: "3" },
 ];
+
 const headlines = [
   "Medical interventions demand precision and urgency.",
   "Which makes coordination within teams vital for success.",
@@ -14,25 +16,26 @@ const headlines = [
 ];
 
 export default function MedicalCarousel({ reverse = false }) {
+  /* ---------------- state & refs ---------------- */
   const [active, setActive] = useState(0);
-  const [hover, setHover] = useState(null);
-  const [rect, setRect] = useState({ top: 0, height: 0 });
-  const [ready, setReady] = useState(false);
-  const timer = useRef();
+  const [hover,  setHover ] = useState(null);
+  const [rect,   setRect  ] = useState({ top: 0, height: 0 });
+  const [ready,  setReady ] = useState(false);
+  const timer   = useRef();
   const rowRefs = useRef([]);
 
-  const clear = () => clearInterval(timer.current);
-  const start = () => {
+  /* -------------- autoplay logic --------------- */
+  const clear  = () => clearInterval(timer.current);
+  const start  = () => {
     clear();
-    timer.current = setInterval(() => {
-      setActive((p) => (p + 1) % slides.length);
-    }, AUTOPLAY_MS);
+    timer.current = setInterval(
+      () => setActive((i) => (i + 1) % slides.length),
+      AUTOPLAY_MS
+    );
   };
-  useEffect(() => {
-    start();
-    return clear;
-  }, []);
+  useEffect(() => { start(); return clear; }, []);
 
+  /* -------------- highlight measure ------------ */
   const target = hover ?? active;
   const measure = () => {
     const node = rowRefs.current[target];
@@ -50,34 +53,50 @@ export default function MedicalCarousel({ reverse = false }) {
 
   const barKey = hover === null ? active : -1;
 
+  /* ------------------ render ------------------- */
   return (
-    <div className="flex flex-col w-full max-w-[1600px] mx-auto px-10 py-16 font-sans bg-slate-50 h-full">
-      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 leading-tight mb-12 max-w-[700px]">
+    <div className="flex flex-col max-w-[1200px] mx-auto p-10 font-sans bg-slate-50 h-full w-full">
+      <h2 className="text-4xl md:text-5xl font-semibold text-slate-800 mb-10 leading-tight">
         In the moment, <span className="text-teal-600">only</span> the patient matters
       </h2>
 
-      <div className={`flex flex-col md:flex-row gap-10 grow items-center ${reverse ? "md:flex-row-reverse" : ""}`}>
-        {/* Slides */}
-        <div className="relative w-full md:w-[70%] aspect-[4/3] overflow-hidden rounded-2xl bg-gray-300 min-h-[300px] max-w-[900px]">
+      <div
+        className={`
+          flex gap-8 grow
+          portrait:flex-col
+          landscape:flex-row
+          ${reverse ? "landscape:flex-row-reverse" : ""}
+        `}
+      >
+        {/* -------- Slide area -------- */}
+        <div
+          className="
+            relative flex-1
+            aspect-[16/9]
+            landscape:max-h-[70vh]
+            portrait:max-h-[45vh]
+            overflow-hidden rounded-2xl bg-gray-300
+          "
+        >
           {slides.map((s, i) => (
             <div
               key={s.id}
-              className={`absolute inset-0 flex items-center justify-center text-7xl text-teal-600 transition-opacity duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)] ${
-                i === target ? "opacity-100" : "opacity-0"
-              }`}
+              className={`
+                absolute inset-0 flex items-center justify-center
+                text-7xl text-teal-600
+                transition-opacity duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)]
+                ${i === target ? "opacity-100" : "opacity-0"}
+              `}
             >
               {s.content}
             </div>
           ))}
         </div>
 
-        {/* Tabs */}
+        {/* -------- Captions -------- */}
         <div
-          onMouseLeave={() => {
-            setHover(null);
-            start();
-          }}
-          className="w-full md:w-[30%] relative flex flex-col justify-center gap-2"
+          onMouseLeave={() => { setHover(null); start(); }}
+          className="relative flex flex-col justify-center gap-2 basis-2/5"
         >
           {ready && (
             <div
@@ -93,26 +112,22 @@ export default function MedicalCarousel({ reverse = false }) {
             </div>
           )}
 
-          {headlines.map((text, i) => (
+          {headlines.map((txt, i) => (
             <button
               key={i}
               ref={(el) => (rowRefs.current[i] = el)}
-              onMouseEnter={() => {
-                clear();
-                setHover(i);
-              }}
-              onClick={() => {
-                setActive(i);
-                start();
-              }}
-              className="relative z-10 text-left py-3 px-4 rounded-lg"
+              onMouseEnter={() => { clear(); setHover(i); }}
+              onClick={() => { setActive(i); start(); }}
+              className="relative z-10 text-left py-4 px-5 rounded-lg"
             >
               <p
-                className={`text-base md:text-lg font-medium break-words transition-colors duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)] ${
-                  target === i ? "text-teal-600" : "text-slate-800"
-                }`}
+                className={`
+                  text-lg font-semibold break-words
+                  transition-colors duration-[600ms] ease-[cubic-bezier(0.44,_0,_0.56,_1)]
+                  ${target === i ? "text-teal-600" : "text-slate-800"}
+                `}
               >
-                {text}
+                {txt}
               </p>
             </button>
           ))}
