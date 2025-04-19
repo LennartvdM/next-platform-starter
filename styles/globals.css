@@ -172,3 +172,15 @@ body::-webkit-scrollbar {
   /* Chrome, Safari, Opera */
   display: none;
 }
+
+/* Hide native scrollbars on any element with .hide‑scrollbar */
+.hide-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE10+ */
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  /* Chrome, Safari, Opera */
+  display: none;
+}

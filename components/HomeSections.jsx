@@ -10,7 +10,7 @@ export default function HomeSections() {
     <div
       className="
         h-screen w-screen
-        overflow-y-scroll overflow-x-hidden
+        overflow-y-scroll overflow-x-hidden hide-scrollbar
         snap-y snap-mandatory scroll-smooth
       "
     >
