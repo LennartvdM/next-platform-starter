@@ -1,59 +1,40 @@
-import { motion } from 'framer-motion';
+'use client';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-interface Section {
-  id: string;
-  title: string;
-}
+interface Section { id: string; title: string }
 
-interface Props {
-  sections: Section[];
-  activeId: string;
-}
+export default function ScrollSpySidebar({ sections }:{sections:Section[]}) {
+  const [active, setActive] = useState(sections[0]?.id);
 
-export default function ScrollSpySidebar({ sections, activeId }: Props) {
-  const handleClick = (id: string) =>
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      entries => {
+        const hit = entries.find(e => e.isIntersecting);
+        if (hit?.target.id) setActive(hit.target.id);
+      },
+      { rootMargin: '-40% 0px -40% 0px' }
+    );
+    sections.forEach(s => {
+      const el = document.getElementById(s.id);
+      el && obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [sections]);
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-64 overflow-y-auto bg-slate-900/90 p-6 text-sm text-slate-200 border-r border-slate-700 backdrop-blur-lg">
-      {sections.map(({ id, title }) => {
-        const active = activeId === id;
-        return (
-          <div key={id} className="relative mb-3 pl-4">
-            {active && (
-              <motion.span
-                layoutId="bullet"
-
-                className="absolute -left-1 top-0 h-full w-1 rounded bg-cyan-400"
-              />
-            )}
-            <button
-              onClick={() => handleClick(id)}
-              className={clsx(
-                'text-left transition-colors',
-                active ? 'text-white font-semibold' : 'hover:text-white'
-        )}
-            >
-              {title}
-            </button>
-          </div>
-        );
-      })}
-
-      <hr className="my-4 border-slate-700" />
-
-      {['contact', 'faq'].map((id) => (
-        <div key={id} className="pl-4">
-          <button
-            onClick={() => handleClick(id)}
-            className="mb-2 text-left text-slate-400 hover:text-white"
-          >
-            {id.charAt(0).toUpperCase() + id.slice(1)}
-          </button>
-        </div>
+    <aside className="sticky top-24 w-52 self-start space-y-2">
+      {sections.map(({ id, title }) => (
+        <a
+          key={id}
+          href={`#${id}`}
+          className={clsx(
+            'block pl-3 text-sm hover:text-cyan-500 transition',
+            active === id ? 'font-semibold text-cyan-500' : 'text-slate-500'
+          )}
+        >
+          {title}
+        </a>
       ))}
     </aside>
   );
