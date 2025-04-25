@@ -1,6 +1,6 @@
-export default function Section({ id, children }) {
+export default function Section({ id, children, className = '' }) {
   return (
-    <section className="min-h-screen flex flex-col justify-center" id={id} className="scroll-mt-24 py-32 first:pt-0 last:pb-0">
+    <section id={id} className={`scroll-mt-32 ${className}`}>
       {children}
     </section>
   );

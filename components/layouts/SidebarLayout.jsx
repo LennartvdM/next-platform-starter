@@ -1,14 +1,24 @@
 import Navbar from '@/components/ui/Navbar';
-import ScrollSpyNav from '@/components/ui/ScrollSpyNav';
-export default function SidebarLayout({ sections=[], children }) {
+import ScrollSpySidebar from '@/components/ui/ScrollSpySidebar';
+
+/**
+ * Sticky sidebar layout: the <aside> never scrolls out of view,
+ * only the <main> column scrolls.
+ */
+export default function SidebarLayout({ sections, children }) {
   return (
     <>
       <Navbar />
-      <div className="flex">
-        <aside className="sticky top-0 h-screen w-60 hidden md:block p-4 bg-black/10 backdrop-blur">
-          <ScrollSpyNav sections={sections} />
+      <div className="mx-auto flex max-w-7xl">
+        <aside
+          className="sticky left-0 top-20 hidden h-[calc(100vh-5rem)] w-60 shrink-0
+                     overflow-y-auto rounded-lg bg-slate-900/90 p-4 text-sm
+                     text-slate-300 backdrop-blur md:block"
+        >
+          <ScrollSpySidebar sections={sections} />
         </aside>
-        <main className="flex-1">{children}</main>
+
+        <main className="flex-1 space-y-32 p-8">{children}</main>
       </div>
     </>
   );
