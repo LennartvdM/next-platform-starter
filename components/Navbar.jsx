@@ -1,18 +1,24 @@
-"use client";
-import Link from "next/link";
+import Link from 'next/link';
+
+const nav = [
+  { href: '/',               label: 'Home' },
+  { href: '/neoflix',        label: 'Neoflix' },
+  { href: '/publications',   label: 'Publications' },
+  { href: '/neoflix#contact',label: 'Contact' },
+  { href: '/toolbox',        label: 'Toolbox' },
+];
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md p-4 z-50">
-      <ul className="flex gap-6 justify-center">
-        {["Home", "About", "Contact"].map((label) => (
-          <li key={label}>
-            <Link href={label === "Home" ? "/" : `/${label.toLowerCase()}`}>
-              <span className="font-medium hover:text-teal-600">{label}</span>
-            </Link>
-          </li>
+    <header className="sticky top-0 z-40 bg-black/70 backdrop-blur">
+      <nav className="mx-auto flex max-w-5xl gap-6 p-4 text-sm">
+        {nav.map(({ href, label }) => (
+          <Link key={href} href={href}
+            className="uppercase tracking-wide hover:text-teal-400 transition">
+            {label}
+          </Link>
         ))}
-      </ul>
-    </nav>
+      </nav>
+    </header>
   );
 }
