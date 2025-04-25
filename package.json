@@ -1,33 +1,48 @@
 {
-    "name": "next-netlify-platform-starter",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    },
-    "dependencies": {
-        "@netlify/blobs": "^8.1.2",
-        "blobshape": "^1.0.0",
-        "bright": "^0.8.5",
-        "clsx": "^2.1.1",
-        "framer-motion": "^10.18.0",
-        "markdown-to-jsx": "^7.4.5",
-        "next": "15.3.0",
-        "react": "18.3.1",
-        "react-dom": "18.3.1",
-        "react-intersection-observer": "^9.16.0",
-        "unique-names-generator": "^4.7.1"
-    },
-    "devDependencies": {
-        "@tailwindcss/postcss": "^4.0.15",
-        "@types/node": "22.14.1",
-        "@types/react": "19.1.2",
-        "eslint": "8.57.1",
-        "eslint-config-next": "15.3.0",
-        "postcss": "^8.4.36",
-        "tailwindcss": "^4.0.15"
-    }
+  "name": "next-netlify-platform-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0",
+    "blobshape": "^1.0.0",
+    "bright": "^1.0.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.9.2",
+    "markdown-to-jsx": "^7.7.6",
+    "next": "15.3.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-intersection-observer": "^9.16.0",
+    "unique-names-generator": "^4.7.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
+    "@types/node": "^22.15.2",
+    "@types/react": "^19.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@typescript-eslint/parser": "^8.31.0",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.3.1",
+    "eslint-config-prettier": "^10.1.2",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  },
+  "packageManager": "pnpm@8.15.6+sha512.77b89e9be77a2b06ad8f403a19cae5e22976f61023f98ad323d5c30194958ebc02ee0a6ae5d13ee454f6134e4e8caf29a05f0b1a0e1d2b17bca6b6a1f1159f86",
+  "description": "[Live Demo](https://nextjs-platform-starter.netlify.app/)",
+  "main": "next.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

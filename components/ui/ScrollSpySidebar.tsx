@@ -25,9 +25,7 @@ export default function ScrollSpySidebar({ sections, activeId }: Props) {
           <div key={id} className="relative mb-3 pl-4">
             {active && (
               <motion.span
-      // @ts-expect-error — framer-motion type quirk
                 layoutId="bullet"
-\n      // @ts-expect-error — framer-motion types dislike className+layoutId together
 
                 className="absolute -left-1 top-0 h-full w-1 rounded bg-cyan-400"
               />
@@ -37,7 +35,7 @@ export default function ScrollSpySidebar({ sections, activeId }: Props) {
               className={clsx(
                 'text-left transition-colors',
                 active ? 'text-white font-semibold' : 'hover:text-white'
-              )}
+        )}
             >
               {title}
             </button>
