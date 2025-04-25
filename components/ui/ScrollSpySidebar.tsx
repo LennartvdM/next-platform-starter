@@ -18,7 +18,7 @@ export default function ScrollSpySidebar({ sections, activeId }: Props) {
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   return (
-    <aside className="sticky top-24 self-start w-60 rounded-lg bg-slate-900/90 p-6 text-sm text-slate-300 backdrop-blur-lg">
+    <aside className="fixed top-0 left-0 h-screen w-64 overflow-y-auto bg-slate-900/90 p-6 text-sm text-slate-200 border-r border-slate-700 backdrop-blur-lg">
       {sections.map(({ id, title }) => {
         const active = activeId === id;
         return (

@@ -19,7 +19,7 @@ export default function SidebarLayout({ sections, children }) {
           <ScrollSpySidebar sections={sections} />
         </aside>
 
-        <main className="flex-1 space-y-32 p-8">{children}</main>
+        <main className="pl-72 flex-1 space-y-32 p-8">{children}</main>
       </div>
     </>
   );
