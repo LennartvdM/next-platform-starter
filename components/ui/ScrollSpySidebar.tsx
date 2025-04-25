@@ -26,6 +26,8 @@ export default function ScrollSpySidebar({ sections, activeId }: Props) {
             {active && (
               <motion.span
                 layoutId="bullet"
+\n      // @ts-expect-error — framer-motion types dislike className+layoutId together
+
                 className="absolute -left-1 top-0 h-full w-1 rounded bg-cyan-400"
               />
             )}
